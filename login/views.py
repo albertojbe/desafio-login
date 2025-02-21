@@ -3,4 +3,4 @@ from django.http import HttpResponse
 
 # Create your views here.
 def entrar(request):
-    return HttpResponse('Ola mUndo')
+    return render(request=request, template_name="entrar.html")
