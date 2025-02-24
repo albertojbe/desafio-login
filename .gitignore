@@ -1,2 +1,5 @@
 .venv/
 env.py
+login/__pycache__/*
+desafiologin/__pycache__/*
+login/migrations/*

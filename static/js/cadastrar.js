@@ -11,7 +11,7 @@ const mensagensErro = {
 }
 
 const regexNome = /^[A-Za-zÀ-ÖØ-öø-ÿ\s]+$/;
-const regexSenha = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[$*&@#])[0-9a-zA-Z$*&@#]{8,}$/
+const regexSenha = /(?=^.{8,}$)((?=.*\d)(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/g
 
 
 // Adicionando função para executrar quando o form for submetido. Caso alguma validação não passe a submissão não irá acontecer.
@@ -23,7 +23,7 @@ form.addEventListener("submit", (e) => {
     }
     else {
         mensagensErro.mensagemSenhas.hidden = true
-    }
+    } 
 
     // Verificando se a senha é fraca
     if (!regexSenha.test(senha.value)) {
@@ -46,18 +46,17 @@ form.addEventListener("submit", (e) => {
 })
 
 // Função para alterar visibilidade da senha quando o icone for clicado
-function alterarVisibilidadeSenha(idIcone, idInputSenha) {
-    const inputSenha = document.querySelector(idInputSenha)
-    const icone = document.querySelector(idIcone)
-    let mostrarSenha = false
+function alterarVisibilidadeSenha(olho) {
+    if (senha.type === "password") {
 
-    icone.addEventListener("click", () => {
-        mostrarSenha = !mostrarSenha
-        icone.className = mostrarSenha ? "fa-solid fa-eye-slash" : "fa-solid fa-eye"
-        inputSenha.type = mostrarSenha ? "password" : "text"
-    })
+        senha.type = "text"
+        senhaRepetida.type = senha.type
+        olho.className = "fa-solid fa-eye"
+    }
+    else {
+        senha.type = "password"
+        senhaRepetida.type = senha.type
+        olho.className = "fa-solid fa-eye-slash"
+    }
+    
 }
-
-// Chamando a função para os dois campos senha
-alterarVisibilidadeSenha("#eye-password-1", "#senha");
-alterarVisibilidadeSenha("#eye-password-2", "#senha-repetida");

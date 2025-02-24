@@ -49,7 +49,7 @@
                     <div class="input-group mb-4">
                         <label for="senha" class="input-group-text"> <i class="fa-solid fa-lock"></i> </label>
                         <input id="senha" name="senha" type="password" class="form-control" placeholder="Senha" required>
-                        <span class="input-group-text"> <i id="eye-password-1" class="fa-solid fa-eye-slash"> </i></span>
+                        <span class="input-group-text"><i id="eye-password-1" class="fa-solid fa-eye-slash" onclick="alterarVisibilidadeSenha(this)"></i></span>
                     </div>
                     
                     <div id="mensagem-senha-fraca" class="mb-3" style="color: red;" hidden>A senha deve ter no mínimo 8 caracteres, incluindo pelo menos uma letra maiúscula, um número e um caractere especial.</div>
@@ -57,7 +57,6 @@
                     <div class="input-group mb-4">
                         <label for="senha-repetida" class="input-group-text"><i class="fa-solid fa-lock"></i></label>
                         <input id="senha-repetida" type="password" class="form-control" placeholder="Repita sua senha" required>
-                        <span class="input-group-text"> <i id="eye-password-2" class="fa-solid fa-eye-slash"> </i></span>
                     </div>
                     <div class="button-box d-flex justify-content-end">
                         <button id="botao-registrar" style="position: relative; right: 0;" type="submit" class="btn btn-primary">Registrar</button>

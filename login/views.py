@@ -16,6 +16,7 @@ def cadastrar(request):
             print(Usuario.objects.filter(email=email))
             messages.error(request, "Email já cadastrado")
             return redirect("cadastrar")
+        
         Usuario.objects.create_user(email=email, nome=nome, password=senha)
         messages.success(request, "Usuário cadastrado com sucesso")
         return redirect('cadastrar')

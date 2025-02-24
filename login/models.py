@@ -48,7 +48,7 @@ class Usuario(AbstractBaseUser):
     objects = AccountManager()
 
     def __str__(self):
-        return self.nome, self.email
+        return self.nome
     
     def get_full_name(self):
         return self.nome
