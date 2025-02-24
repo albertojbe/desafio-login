@@ -1,0 +1,76 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Desafio Login</title>
+    <!-- Importando Bootstrap e Font Awesome-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+    <main class="vh-100 d-flex justify-content-center align-items-center bg-dark">
+        <div class="d-block justify-content-center align-items-center bg-light rounded-2" style="width: 500px;">
+            <div class="card-body p-5">
+                
+                <div class="text-center border-bottom border-2 mb-4">
+                    <h4>DESAFIO LOGIN</h4>
+                </div>
+
+                <form action="/cadastrar/" method="post">
+                    {% csrf_token %}
+                    <div class="box-message mb-4 text-center">
+                        <p style="font-size: 15px;">Informe os dados requeridos</p>
+                    </div>
+                    
+                    <!-- Mensagens de erro para validações -->
+                    <p id="mensagem-senhas" class="alert alert-danger pt-1 pb-1" hidden>As senhas não são iguais</p>
+                    <p id="mensagem-campos-vazios" class="alert alert-danger pt-1 pb-1" hidden>Preencha os campos vazios</p>
+                    {% if messages %}
+                        {% for message in messages %}
+                            <p class="alert alert-warning pt-1 pb-1">{{ message }}</p>
+                        {% endfor %}
+                    {% endif %}
+
+                    <!-- Campos do formulário -->
+                    <div class="input-group mb-4">
+                        <label for="email" class="input-group-text"><i class="fa-solid fa-envelope"></i></label>
+                        <input id="email" name="email" type="email" class="form-control" placeholder="E-mail" required>
+                    </div>
+
+                    <div class="input-group mb-4">
+                        <label for="nome" class="input-group-text"><i class="fa-solid fa-user"></i></label>
+                        <input id="nome" name="nome" type="text" class="form-control" placeholder="Nome" required>
+                    </div>
+                    <div id="mensagem-nome" class="mb-3" style="color: red;" hidden>O nome deve conter apenas letras</div>
+
+                    <div class="input-group mb-4">
+                        <label for="senha" class="input-group-text"> <i class="fa-solid fa-lock"></i> </label>
+                        <input id="senha" name="senha" type="password" class="form-control" placeholder="Senha" required>
+                        <span class="input-group-text"> <i id="eye-password-1" class="fa-solid fa-eye-slash"> </i></span>
+                    </div>
+                    
+                    <div id="mensagem-senha-fraca" class="mb-3" style="color: red;" hidden>A senha deve ter no mínimo 8 caracteres, incluindo pelo menos uma letra maiúscula, um número e um caractere especial.</div>
+                    
+                    <div class="input-group mb-4">
+                        <label for="senha-repetida" class="input-group-text"><i class="fa-solid fa-lock"></i></label>
+                        <input id="senha-repetida" type="password" class="form-control" placeholder="Repita sua senha" required>
+                        <span class="input-group-text"> <i id="eye-password-2" class="fa-solid fa-eye-slash"> </i></span>
+                    </div>
+                    <div class="button-box d-flex justify-content-end">
+                        <button id="botao-registrar" style="position: relative; right: 0;" type="submit" class="btn btn-primary">Registrar</button>
+                    </div>
+                </form>
+                
+                <!-- Link para cancelar registro e voltar para tela de login -->
+                <a style="text-decoration: none;" href="#">Cancelar</a>
+            </div>
+        </div>
+    </main>
+</body>
+<script src="{% static 'js/cadastrar.js' %}"></script>
+<!-- Importando script bootstrap -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
+</html>
