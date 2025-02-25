@@ -11,8 +11,10 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
 from pathlib import Path
-from desafiologin.env import DATABASE_CONFIG
+from dotenv import load_dotenv
 import os
+
+load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -78,7 +80,7 @@ AUTH_USER_MODEL = 'login.Usuario'
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
-DATABASES = DATABASE_CONFIG
+DATABASES = ENV_DATABASE_CONFIG
 
 
 # Password validation
@@ -128,3 +130,12 @@ STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# Configurações de email
+DEFAULT_FROM_EMAIL = ENV_EMAIL_HOST_PASSWORD
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = ENV_EMAIL_HOST
+EMAIL_HOST_USER = ENV_EMAIL_HOST_USER
+EMAL_HOST_PASSWORD = ENV_EMAIL_HOST_PASSWORD
+EMAIL_USE_TLS = True
+EMAIL_PORT = 587

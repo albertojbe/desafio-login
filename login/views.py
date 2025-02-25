@@ -1,7 +1,8 @@
 from django.shortcuts import render, redirect
+from django.core.mail import send_mail, EmailMessage
 from django.contrib import messages
 from django.contrib.auth import authenticate, login
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponse
 from django.contrib.auth.decorators import login_required
 from .decorators import redireciona_se_logado
 from .models import Usuario
@@ -79,4 +80,6 @@ def cadastrar(request):
     else:
         return render(request=request, template_name="pages/login-register/cadastrar.html")
         
-        
+def email(request):
+    send_mail(subject="Teste de email", message="Teste de email", from_email="albertocesar.be@gmail.com", recipient_list=["albertocesar.be@gmail.com"])
+    return HttpResponse("Email enviado com sucesso")
