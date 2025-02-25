@@ -1,0 +1,40 @@
+{% extends "pages/login-register/base-login-register.html" %}
+{% load static %}
+
+{% block title %}
+<title>Entrar</title>
+{% endblock title %}
+
+{% block formulario %}
+<form action="{% url 'entrar' %}" method="post">
+    {% csrf_token %}
+    <div class="text-center mb-4">
+        <p>Digite seus dados de login</p>
+    </div>
+    {% if messages %} 
+        {% for message in messages %}
+            <p class="alert alert-secondary pt-1 pb-1">{{ message }}</p>
+        {% endfor %} 
+    {% endif %}
+    <div class="input-group mb-4">
+        <label for="email" class="input-group-text"><i class="fa-solid fa-envelope"></i></label>
+        <input id="email" name="email" type="email" class="form-control" placeholder="E-mail" required />
+    </div>
+    <div class="input-group mb-5">
+        <label for="senha" class="input-group-text"><i class="fa-solid fa-lock"></i></label>
+        <input id="senha" name="senha" type="password" class="form-control" placeholder="Senha" required />
+        <span class="input-group-text"><i id="eye-password-1" class="fa-solid fa-eye-slash" onclick="alterarVisibilidadeSenha(this)"></i></span>
+    </div>
+    <div class="button-box d-flex flex-column justify-content-center">
+        <button id="botao-entrar" type="submit" class="btn btn-success mb-3">Entrar</button>
+        <a href="{% url 'cadastrar' %}" class="btn btn-primary">Cadastrar</a>
+    </div>
+</form>
+{% endblock formulario %}
+
+{% block scripts %}
+<script src="{% static 'js/entrar.js' %}"></script>
+{% endblock scripts %}
+
+
+

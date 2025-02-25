@@ -1,0 +1,68 @@
+{% extends "pages/login-register/base-login-register.html" %}
+{% load static %}
+
+{% block title %}
+<title>Cadastrar</title>
+{% endblock title %}
+
+{% block formulario %}
+<form>
+    {% csrf_token %}
+    <div class="mb-4 text-center">
+        <p>Informe os dados requeridos</p>
+    </div>
+
+    <!-- Mensagens de erro para validações -->
+    <p id="mensagem-senhas" class="alert alert-danger pt-1 pb-1" hidden>
+        As senhas não são iguais
+    </p>
+    <p id="mensagem-email" class="alert alert-warning pt-1 pb-1" hidden>
+        Email já cadastrado
+    </p>
+    {% if messages %} {% for message in messages %}
+    <p class="alert alert-success pt-1 pb-1">{{ message }}</p>
+    {% endfor %} {% endif %}
+
+    <!-- Campos do formulário -->
+    <div class="input-group mb-4">
+        <label for="email" class="input-group-text"><i class="fa-solid fa-envelope"></i></label>
+        <input id="email" name="email" type="email" class="form-control" placeholder="E-mail" required />
+    </div>
+
+    <div class="input-group mb-4">
+        <label for="nome" class="input-group-text"><i class="fa-solid fa-user"></i></label>
+        <input id="nome" name="nome" type="text" class="form-control" placeholder="Nome" required />
+    </div>
+    <!-- Mensagem informando que o nome que o usuário digitou não é valido -->
+    <div id="mensagem-nome" class="mb-3" style="color: red" hidden>
+        O nome deve conter apenas letras
+    </div>
+
+    <div class="input-group mb-4">
+        <label for="senha" class="input-group-text">
+            <i class="fa-solid fa-lock"></i>
+        </label>
+        <input id="senha" name="senha" type="password" class="form-control" placeholder="Senha" required />
+        <span class="input-group-text"><i id="eye-password-1" class="fa-solid fa-eye-slash"
+                onclick="alterarVisibilidadeSenha(this)"></i></span>
+    </div>
+    <!-- Mensagem para intruir o usuário a criar uma senha forte -->
+    <div id="mensagem-senha-fraca" class="mb-3" style="color: red" hidden>
+        A senha deve ter no mínimo 8 caracteres, incluindo pelo menos uma letra
+        maiúscula, um número e um caractere especial.
+    </div>
+
+    <div class="input-group mb-4">
+        <label for="senha-repetida" class="input-group-text"><i class="fa-solid fa-lock"></i></label>
+        <input id="senha-repetida" type="password" class="form-control" placeholder="Confirmar senha" required />
+    </div>
+    <div class="button-box d-flex flex-column justify-content-center">
+        <button id="botao-registrar" type="submit" class="btn btn-primary mb-3">Cadastrar</button>
+        <a class="btn btn-secondary" href="{% url "entrar" %}">Cancelar</a>
+    </div>
+</form>
+{% endblock formulario %}
+
+{% block scripts %}
+<script src="{% static 'js/cadastrar.js' %}"></script>
+{% endblock scripts %}
