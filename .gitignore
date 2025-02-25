@@ -1,5 +1,4 @@
 .venv/
+temp/
+__pycache__/
 env.py
-login/__pycache__/*
-desafiologin/__pycache__/*
-login/migrations/*
