@@ -1,8 +1,9 @@
+from django.conf import settings
 from django.shortcuts import render, redirect
-from django.core.mail import send_mail, EmailMessage
+from django.core.mail import send_mail
 from django.contrib import messages
 from django.contrib.auth import authenticate, login
-from django.http import JsonResponse, HttpResponse
+from django.http import JsonResponse
 from django.contrib.auth.decorators import login_required
 from .decorators import redireciona_se_logado
 from .models import Usuario
@@ -74,12 +75,11 @@ def cadastrar(request):
         # Se todas as validações passarem, o usuário é cadastrado e a mensagem é enviada. No front a tela será recarregada para aparecer a mensagem
         if responseJson['sucesso']:
             Usuario.objects.create_user(email=usuario['email'], nome=usuario['nome'], password=usuario['senha'])
+            # Enviando email para o usuário
+            send_mail(subject="Conta criada", message="Sua conta foi cadastrada com sucesso!", from_email=settings.EMAIL_HOST_USER, recipient_list=[usuario['email']], fail_silently=True)
             messages.add_message(request, messages.SUCCESS, "Usuário cadastrado com sucesso")
 
         return JsonResponse(responseJson)
     else:
+        # Caso a requisição não seja um POST, retorna o template para cadastro
         return render(request=request, template_name="pages/login-register/cadastrar.html")
-        
-def email(request):
-    send_mail(subject="Teste de email", message="Teste de email", from_email="albertocesar.be@gmail.com", recipient_list=["albertocesar.be@gmail.com"])
-    return HttpResponse("Email enviado com sucesso")
