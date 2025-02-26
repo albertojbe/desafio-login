@@ -14,17 +14,18 @@ from pathlib import Path
 from dotenv import load_dotenv
 import os
 
-load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+# CARREGANDO ARQUIVO .ENV PARA VARIÁVIES DE AMBIENTE PERSONALIZADAS
+load_dotenv(override=True)
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-_syq9m&h$t0t*t@z$e*ag-=c#7ju2g)eydwgg4k(qi+c6xbp-y'
+SECRET_KEY = os.getenv('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -80,7 +81,16 @@ AUTH_USER_MODEL = 'login.Usuario'
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
-DATABASES = ENV_DATABASE_CONFIG
+DATABASES = {
+    'default': {
+        'ENGINE': os.getenv('ENGINE'),
+        'NAME': os.getenv('NAME'),
+        'USER': os.getenv('USER'),
+        'PASSWORD': os.getenv('PASSWORD'),
+        'HOST': os.getenv('HOST'),
+        'PORT': os.getenv('PORT'),
+    }
+}
 
 
 # Password validation
@@ -132,6 +142,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Configurações de email
+"""
 DEFAULT_FROM_EMAIL = ENV_EMAIL_HOST_PASSWORD
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = ENV_EMAIL_HOST
@@ -139,3 +150,4 @@ EMAIL_HOST_USER = ENV_EMAIL_HOST_USER
 EMAL_HOST_PASSWORD = ENV_EMAIL_HOST_PASSWORD
 EMAIL_USE_TLS = True
 EMAIL_PORT = 587
+"""
