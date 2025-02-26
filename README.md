@@ -56,6 +56,7 @@ EMAIL_HOST_PASSWORD=sua_senha
 
 ### 5. **Realize as migrações no banco de dados**
 ```sh
+python manage.py makemigrations
 python manage.py migrate
 ```
 
